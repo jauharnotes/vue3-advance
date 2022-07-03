@@ -1,9 +1,29 @@
 <template>
-  <h2>This is Home Page</h2>
+  <div>
+    <h2>Home Page</h2>
+    <p>Total like: {{ likes }}</p>
+    <p>Selamat datang {{ username }}</p>
+  </div>
 </template>
 
 <script>
-export default {};
+import { useStore } from 'vuex';
+import { computed, ref, onMounted } from 'vue';
+export default {
+  setup() {
+    const store = useStore();
+    const username = ref('');
+
+    const likes = computed(() => {
+      return store.state.totalLikes;
+    });
+
+    onMounted(() => {
+      username.value = store.state.username;
+    });
+    return { likes, username };
+  },
+};
 </script>
 
 <style></style>
